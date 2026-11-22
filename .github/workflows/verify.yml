@@ -1,7 +1,6 @@
 # Проверяет запуск из чистой копии на отдельной виртуальной машине.
 name: Проверка курсовой
 on:
-  push:
   workflow_dispatch:
 permissions:
   contents: read

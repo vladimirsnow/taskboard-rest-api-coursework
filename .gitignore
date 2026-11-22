@@ -5,6 +5,7 @@ node_modules/
 !.env.example
 .local/
 *.docx
+*.pptx
 ~$*
 __pycache__/
 *.pyc
