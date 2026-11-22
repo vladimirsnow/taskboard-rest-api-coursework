@@ -1,0 +1,43 @@
+// Модель пользователей, проектов и задач для PostgreSQL.
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+enum Role {
+  user
+  admin
+}
+enum Status {
+  TODO
+  DOING
+  DONE
+}
+model User {
+  id           Int    @id @default(autoincrement())
+  email        String @unique @db.VarChar(254)
+  name         String @db.VarChar(80)
+  passwordHash String
+  role         Role   @default(user)
+  tasks        Task[]
+}
+model Project {
+  id    Int    @id @default(autoincrement())
+  name  String @unique @db.VarChar(120)
+  tasks Task[]
+}
+model Task {
+  id          Int     @id @default(autoincrement())
+  title       String  @db.VarChar(160)
+  description String  @default("") @db.VarChar(2000)
+  status      Status  @default(TODO)
+  projectId   Int
+  ownerId     Int
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Restrict)
+  owner       User    @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+
+  @@index([ownerId, id])
+  @@index([projectId])
+}

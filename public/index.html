@@ -1,0 +1,212 @@
+<!-- Разметка экранов входа, доски задач, справочников и окна редактирования. -->
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#143f36" />
+    <title>Контур — управление задачами</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="data:," />
+    <script type="module" src="/js/main.js"></script>
+  </head>
+  <body>
+    <main id="auth-screen" class="auth-screen">
+      <section class="auth-art" aria-label="Контур. Управление задачами">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span
+          >Контур
+        </div>
+        <div class="cover-heading">
+          <span>Управление задачами</span>
+          <h1>Проектная<br />доска<span>.</span></h1>
+        </div>
+        <div class="board-art" aria-hidden="true">
+          <div class="sheet back"></div>
+          <div class="sheet front">
+            <div class="art-handle"></div>
+            <div class="art-col"><i></i><b></b><b></b></div>
+            <div class="art-col"><i></i><b></b></div>
+            <div class="art-col"><i></i><b></b><b></b></div>
+          </div>
+        </div>
+      </section>
+      <section class="auth-panel" aria-labelledby="auth-heading">
+        <div class="auth-inner">
+          <div class="segmented" role="group" aria-label="Доступ к аккаунту">
+            <button
+              type="button"
+              id="mode-login"
+              data-mode="login"
+              aria-pressed="true"
+            >
+              Вход
+            </button>
+            <button
+              type="button"
+              id="mode-register"
+              data-mode="register"
+              aria-pressed="false"
+            >
+              Регистрация
+            </button>
+          </div>
+          <h2 id="auth-heading">Войти в аккаунт</h2>
+          <form id="auth-form">
+            <label id="name-field" hidden
+              >Имя<input
+                name="name"
+                autocomplete="name"
+                maxlength="80"
+                disabled
+            /></label>
+            <label
+              >Электронная почта<input
+                name="email"
+                type="email"
+                autocomplete="username"
+                required
+                maxlength="254"
+                placeholder="name@example.com"
+            /></label>
+            <label
+              >Пароль<input
+                name="password"
+                type="password"
+                minlength="10"
+                autocomplete="current-password"
+                required
+                maxlength="128"
+            /></label>
+            <p id="password-hint" class="muted" hidden>От 10 до 128 символов</p>
+            <p id="auth-message" class="message" role="status"></p>
+            <button id="auth-submit" class="primary full">Войти</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <div id="work-screen" hidden>
+      <header class="top">
+        <div class="wrap top-row">
+          <div class="brand">
+            <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span
+            >Контур
+          </div>
+          <div class="account">
+            <span id="account-name"></span
+            ><button type="button" id="logout" class="quiet">Выйти</button>
+          </div>
+        </div>
+      </header>
+      <nav class="navbar" aria-label="Рабочее пространство">
+        <div class="wrap nav-row">
+          <button type="button" data-view="tasks" aria-current="page">
+            Доска задач
+          </button>
+          <button type="button" data-view="projects">Проекты</button>
+          <button type="button" data-view="users" id="users-nav" hidden>
+            Пользователи
+          </button>
+        </div>
+      </nav>
+      <main class="wrap workspace">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">Рабочее пространство</span>
+            <h1 id="view-title">Доска задач</h1>
+          </div>
+          <button id="add-task" class="primary" type="button">
+            <span aria-hidden="true">＋</span> Новая задача
+          </button>
+        </div>
+        <p id="work-message" class="message" role="status"></p>
+        <section id="task-view" aria-label="Задачи">
+          <div class="toolbar">
+            <label class="search-label"
+              ><span class="sr-only">Поиск по задачам</span
+              ><span class="search-icon" aria-hidden="true"></span
+              ><input id="search" type="search" placeholder="Поиск по задачам"
+            /></label>
+            <label
+              ><span class="sr-only">Фильтр по проекту</span
+              ><select id="project-filter">
+                <option value="">Все проекты</option>
+              </select></label
+            >
+            <label
+              ><span class="sr-only">Фильтр по статусу</span
+              ><select id="status-filter">
+                <option value="">Все статусы</option>
+                <option value="TODO">К выполнению</option>
+                <option value="DOING">В работе</option>
+                <option value="DONE">Готово</option>
+              </select></label
+            >
+          </div>
+          <div id="board" class="board"></div>
+        </section>
+        <section id="directory-view" aria-labelledby="view-title" hidden>
+          <div id="directory" class="directory"></div>
+        </section>
+      </main>
+    </div>
+    <dialog id="task-dialog" aria-labelledby="task-heading">
+      <form id="task-form">
+        <div class="dialog-head">
+          <h2 id="task-heading">Новая задача</h2>
+          <button
+            class="close"
+            type="button"
+            id="close-dialog"
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+        </div>
+        <label
+          >Название<input
+            name="title"
+            required
+            maxlength="160"
+            placeholder="Что нужно сделать?"
+        /></label>
+        <label
+          >Описание<textarea
+            name="description"
+            rows="4"
+            maxlength="2000"
+          ></textarea>
+        </label>
+        <div class="form-row">
+          <label>Проект<select aria-label="Проект" name="projectId" required></select></label>
+          <label
+            >Статус<select aria-label="Статус" name="status">
+              <option value="TODO">К выполнению</option>
+              <option value="DOING">В работе</option>
+              <option value="DONE">Готово</option>
+            </select></label
+          >
+        </div>
+        <p id="task-message" class="message" role="status"></p>
+        <div class="dialog-actions">
+          <button type="button" id="delete-task" class="danger" hidden>
+            Удалить задачу</button
+          ><button type="submit" class="primary">Сохранить</button>
+        </div>
+      </form>
+      <div id="confirm-delete" hidden>
+        <h2>Удалить задачу?</h2>
+        <p id="delete-description"></p>
+        <p id="delete-message" class="message" role="status"></p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary" id="cancel-delete">
+            Отмена</button
+          ><button type="button" class="danger-solid" id="confirm-button">
+            Удалить
+          </button>
+        </div>
+      </div>
+    </dialog>
+    <noscript>Для работы с доской включите JavaScript в браузере.</noscript>
+  </body>
+</html>

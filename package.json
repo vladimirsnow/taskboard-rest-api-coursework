@@ -1,0 +1,26 @@
+{
+  "name": "taskboard-coursework",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "REST API и доска задач по проектам",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "start": "node scripts/startLocal.js",
+    "start:external": "node --env-file=.env server.js",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "node --env-file=.env scripts/seedDatabase.js",
+    "test": "node --env-file=.env scripts/runTests.js"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "2.2.2",
+    "@prisma/client": "6.19.3",
+    "embedded-postgres": "18.7.0-beta.19",
+    "express": "5.3.0",
+    "jsonwebtoken": "9.0.3",
+    "prisma": "6.19.3",
+    "zod": "3.25.76"
+  }
+}

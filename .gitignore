@@ -1,0 +1,10 @@
+# Зависимости, локальные данные, секреты и персональный отчёт.
+node_modules/
+.env
+.env.*
+!.env.example
+.local/
+*.docx
+~$*
+__pycache__/
+*.pyc
