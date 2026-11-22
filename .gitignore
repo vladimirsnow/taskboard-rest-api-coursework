@@ -9,3 +9,7 @@ node_modules/
 ~$*
 __pycache__/
 *.pyc
+
+# Локальная документация и блокировки открытых документов LibreOffice.
+/README.md
+.~lock.*#

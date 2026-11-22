@@ -1,5 +1,5 @@
 # Проверяет REST API по HTTP на отдельной тестовой базе с подготовленными проектами.
-"""Запуск: python3 -m unittest discover -s tests -v. Настройки — в README.md."""
+"""Запуск: python3 -m unittest discover -s tests -v. Настройки — API_URL, ADMIN_EMAIL и ADMIN_PASSWORD."""
 
 import json
 import os

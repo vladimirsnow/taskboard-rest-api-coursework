@@ -10,7 +10,7 @@ if (!existsSync('.env')) createLocalEnv();
 process.loadEnvFile('.env');
 const url = new URL(process.env.DATABASE_URL);
 if (url.hostname !== '127.0.0.1' || url.pathname !== '/postgres') {
-  throw new Error('Для собственной базы используйте npm run start:external (см. README).');
+  throw new Error('Для собственной базы используйте npm run start:external.');
 }
 mkdirSync('.local', { recursive: true });
 const databaseDir = resolve('.local/postgres');
